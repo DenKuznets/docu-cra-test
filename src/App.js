@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { styled } from "styled-components";
+import { Button } from "@mui/material";
+import { library, icon as someIcon } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+
+const Container = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+`;
+
+const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    .fa-user-secret {
+        color: white;
+    }
+`;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const handleClick = () => {
+      console.log("click");
+      console.log(fas);
+    };
+
+    return (
+        <div className="App">
+            <Container>
+                <Content>
+                    <Button onClick={handleClick} variant="contained">
+                        PUSH ME
+                    </Button>
+                    <FontAwesomeIcon
+                        size="6x"
+                        icon={icon({ name: "user-secret" })}
+                    />
+                </Content>
+            </Container>
+        </div>
+    );
 }
 
 export default App;
