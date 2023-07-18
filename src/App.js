@@ -23,9 +23,6 @@ const Content = styled.div`
     svg {
         color: white;
     }
-    /* .task-counter {
-        color: white;
-    } */
 `;
 
 library.add(fas);
@@ -58,11 +55,14 @@ function App() {
         <div className="App">
             <Container>
                 <Content>
-                    <Button style={{width: "150px"}} onClick={handleClick} variant="contained">
+                    <Button
+                        style={{ width: "150px" }}
+                        onClick={handleClick}
+                        variant="contained"
+                    >
                         PUSH ME
                     </Button>
                     <FontAwesomeIcon size="6x" icon={randomIcon} />
-                    {/* <div className="task-counter">{taskCounter}</div> */}
                 </Content>
             </Container>
         </div>
