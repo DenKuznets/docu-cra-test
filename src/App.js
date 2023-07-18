@@ -58,7 +58,7 @@ function App() {
         <div className="App">
             <Container>
                 <Content>
-                    <Button onClick={handleClick} variant="contained">
+                    <Button style={{width: "150px"}} onClick={handleClick} variant="contained">
                         PUSH ME
                     </Button>
                     <FontAwesomeIcon size="6x" icon={randomIcon} />
