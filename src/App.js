@@ -5,7 +5,7 @@ import { styled } from "styled-components";
 import { Button } from "@mui/material";
 import { library, icon as someIcon } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const Container = styled.div`
     display: flex;
@@ -23,27 +23,35 @@ const Content = styled.div`
     svg {
         color: white;
     }
+    /* .task-counter {
+        color: white;
+    } */
 `;
 
 library.add(fas);
 
 function App() {
     const [randomIcon, setRandomIcon] = useState("hand-dots");
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-    }
+    const [taskCounter, setTaskCounter] = useState(0);
+    const timerId = useRef("");
+    const icons = useMemo(() => Object.entries(fas), []);
+
+    useEffect(() => {
+        if (taskCounter === 0) {
+            clearInterval(timerId.current);
+            timerId.current = null;
+        }
+        if (taskCounter > 0 && timerId.current === null) {
+            timerId.current = setInterval(() => {
+                let randomIndex = Math.floor(Math.random() * icons.length);
+                setRandomIcon(icons[randomIndex][1].iconName);
+                setTaskCounter((prev) => prev - 1);
+            }, 3000);
+        }
+    }, [taskCounter]);
 
     const handleClick = () => {
-        console.log("click");
-        let icons = Object.entries(fas);
-        // console.log(Math.floor(Math.random() * icons.length));
-        let randomIndex = Math.floor(Math.random() * icons.length);
-        // console.log(icons.length);
-        console.log(icons[randomIndex][1].iconName);
-        setRandomIcon(icons[randomIndex][1].iconName);
-        // for()
+        setTaskCounter((prev) => prev + 1);
     };
 
     return (
@@ -54,6 +62,7 @@ function App() {
                         PUSH ME
                     </Button>
                     <FontAwesomeIcon size="6x" icon={randomIcon} />
+                    {/* <div className="task-counter">{taskCounter}</div> */}
                 </Content>
             </Container>
         </div>
